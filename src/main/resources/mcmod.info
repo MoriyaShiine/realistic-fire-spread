@@ -1,0 +1,16 @@
+[
+{
+  "modid": "realisticfirespread",
+  "name": "Realistic Fire Spread",
+  "description": "Mobs on fire will set fire to blocks around them.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["MoriyaShiine"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
