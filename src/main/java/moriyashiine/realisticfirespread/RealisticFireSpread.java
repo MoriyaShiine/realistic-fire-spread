@@ -1,7 +1,5 @@
 package moriyashiine.realisticfirespread;
 
-import java.util.Random;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -15,43 +13,33 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 
+import java.util.Random;
+
+@SuppressWarnings("deprecation")
 @Mod(modid = "realisticfirespread", name = "Realistic Fire Spread", version = "1.0.0")
-public class RealisticFireSpread
-{
+public class RealisticFireSpread {
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
+	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
 	@SubscribeEvent
-	public void worldTick(WorldTickEvent event)
-	{
+	public void worldTick(WorldTickEvent event) {
 		World world = event.world;
-		
-		if(world.getTotalWorldTime() % 20 == 0)
-		{
-			if(!world.isRemote && world.getGameRules().getBoolean("doFireTick"))
-			{
-				for(Entity entity : world.loadedEntityList)
-				{
-					if(entity.isBurning())
-					{
+		if (world.getTotalWorldTime() % 20 == 0) {
+			if (!world.isRemote && world.getGameRules().getBoolean("doFireTick")) {
+				for (Entity entity : world.loadedEntityList) {
+					if (entity.isBurning()) {
 						BlockPos pos = entity.getPosition();
 						Random rand = world.rand;
 						int x = MathHelper.getInt(rand, -1, 1);
 						int y = MathHelper.getInt(rand, -1, 1);
 						int z = MathHelper.getInt(rand, -1, 1);
 						pos = pos.add(x, y, z);
-						
-						if(world.getBlockState(pos).getBlock() == Blocks.AIR)
-						{
-							for(EnumFacing face : EnumFacing.values())
-							{
+						if (world.getBlockState(pos).getBlock() == Blocks.AIR) {
+							for (EnumFacing face : EnumFacing.values()) {
 								boolean flammable = Blocks.FIRE.canCatchFire(world, pos.offset(face));
-								
-								if(flammable)
-								{
+								if (flammable) {
 									world.setBlockState(pos, Blocks.FIRE.getDefaultState());
 									break;
 								}
