@@ -1,53 +1,51 @@
 package moriyashiine.realisticfirespread;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FireBlock;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.util.Random;
 
-@SuppressWarnings("deprecation")
-@Mod(modid = "realisticfirespread", name = "Realistic Fire Spread", version = "1.0.0")
+@Mod("realisticfirespread")
 public class RealisticFireSpread {
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		MinecraftForge.EVENT_BUS.register(this);
+	public RealisticFireSpread() {
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 	}
 	
-	@SubscribeEvent
-	public void worldTick(WorldTickEvent event) {
-		World world = event.world;
-		if (world.getTotalWorldTime() % 20 == 0) {
-			if (!world.isRemote && world.getGameRules().getBoolean("doFireTick")) {
-				for (Entity entity : world.loadedEntityList) {
-					if (entity.isBurning()) {
-						BlockPos pos = entity.getPosition();
-						Random rand = world.rand;
-						int x = MathHelper.getInt(rand, -1, 1);
-						int y = MathHelper.getInt(rand, -1, 1);
-						int z = MathHelper.getInt(rand, -1, 1);
-						pos = pos.add(x, y, z);
-						if (world.getBlockState(pos).getBlock() == Blocks.AIR) {
-							for (EnumFacing face : EnumFacing.values()) {
-								boolean flammable = Blocks.FIRE.canCatchFire(world, pos.offset(face));
-								if (flammable) {
-									world.setBlockState(pos, Blocks.FIRE.getDefaultState());
-									break;
-								}
+	private void setup(final FMLCommonSetupEvent event) {
+		MinecraftForge.EVENT_BUS.register(new Handler());
+	}
+	
+	private static class Handler {
+		@SubscribeEvent
+		public void worldTick(TickEvent.WorldTickEvent event) {
+			World world = event.world;
+			if (!world.isRemote && world instanceof ServerWorld && world.getGameTime() % 20 == 0 && world.getGameRules().getBoolean(GameRules.DO_FIRE_TICK)) ((ServerWorld) world).getEntities().forEach(entity -> {
+				if (entity.isBurning()) {
+					BlockPos pos = entity.getPosition();
+					Random rand = world.rand;
+					pos = pos.add(MathHelper.nextInt(rand, -1, 1), MathHelper.nextInt(rand, -1, 1), MathHelper.nextInt(rand, -1, 1));
+					if (world.getBlockState(pos).isAir(world, pos)) {
+						for (Direction direction : Direction.values()) {
+							if (world.getBlockState(pos.offset(direction)).isFlammable(world, pos.offset(direction), direction)) {
+								world.setBlockState(pos, ((FireBlock) Blocks.FIRE).getStateForPlacement(world, pos));
+								break;
 							}
 						}
 					}
 				}
-			}
+			});
 		}
 	}
 }
