@@ -9,23 +9,17 @@ buildscript {
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
-// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
 
 version = '1.0'
 group = 'moriyashiine.realisticfirespread'
-archivesBaseName = 'realisticfirespread'
-
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
     mappings channel: 'snapshot', version: '20190719-1.14.3'
     runs {
         client {
             workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+
             mods {
                 realisticfirespread {
                     source sourceSets.main
@@ -34,8 +28,8 @@ minecraft {
         }
         server {
             workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+
             mods {
                 realisticfirespread {
                     source sourceSets.main
@@ -46,7 +40,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.0'
+    minecraft 'net.minecraftforge:forge:1.15.1-30.0.0'
 }
 
 jar {
