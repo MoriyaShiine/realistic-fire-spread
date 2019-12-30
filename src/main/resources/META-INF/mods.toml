@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[30,)" #mandatory (30 is current forge version)
+loaderVersion="[30,)" #mandatory
 issueTrackerURL="https://github.com/MoriyaShiine/realistic-fire-spread/issues" #optional
 [[mods]] #mandatory
 modId="realisticfirespread" #mandatory
