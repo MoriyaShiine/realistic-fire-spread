@@ -1,18 +1,18 @@
-modLoader="javafml" #mandatory
-loaderVersion="[31,)" #mandatory
-issueTrackerURL="https://github.com/MoriyaShiine/realistic-fire-spread/issues" #optional
-[[mods]] #mandatory
-modId="realisticfirespread" #mandatory
-version="${file.jarVersion}" #mandatory
-displayName="Realistic Fire Spread" #mandatory
-displayURL="https://www.curseforge.com/minecraft/mc-mods/realistic-fire-spread" #optional
-logoFile="icon.png" #optional
-authors="MoriyaShiine, cybercat5555" #optional
-description='''Entities on fire will set fire to flammable blocks around them.'''
-[[dependencies.realisticfirespread]] #optional
-    modId="forge" #mandatory
-    mandatory=true #mandatory
-    versionRange="[31,)" #mandatory
+modLoader="javafml"
+loaderVersion="[31,)"
+issueTrackerURL="https://github.com/MoriyaShiine/realistic-fire-spread/issues"
+[[mods]]
+modId="realisticfirespread"
+version="${file.jarVersion}"
+displayName="Realistic Fire Spread"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/realistic-fire-spread"
+logoFile="icon.png"
+authors="MoriyaShiine"
+description='''Entities on fire will set fire to flammable blocks around them'''
+[[dependencies.realisticfirespread]]
+    modId="forge"
+    mandatory=true
+    versionRange="[31,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.realisticfirespread]]
