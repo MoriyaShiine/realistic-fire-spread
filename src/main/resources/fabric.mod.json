@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "realisticfirespread",
+  "version": "${version}",
+  "name": "Realistic Fire Spread",
+  "description": "Entities on fire will set fire to flammable blocks around them",
+  "authors": [
+	"MoriyaShiine"
+  ],
+  "contact": {
+	"homepage": "https://www.curseforge.com/minecraft/mc-mods/realistic-fire-spread",
+	"sources": "https://github.com/MoriyaShiine/realistic-fire-spread"
+  },
+  "license": "GPL-3.0",
+  "icon": "assets/realisticfirespread/icon.png",
+  "environment": "*",
+  "entrypoints": {
+	"main": [
+	  "moriyashiine.realisticfirespread.RealisticFireSpread"
+	]
+  },
+  "depends": {
+	"fabricloader": ">=0.7.4",
+	"fabric": "*",
+	"minecraft": "1.16.x"
+  },
+  "suggests": {
+	"flamingo": "*"
+  }
+}

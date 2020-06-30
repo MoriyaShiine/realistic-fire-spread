@@ -1,45 +1,35 @@
 package moriyashiine.realisticfirespread;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FireBlock;
-import net.minecraft.util.Direction;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.world.WorldTickCallback;
+import net.minecraft.block.AbstractFireBlock;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.util.Random;
 
-@Mod("realisticfirespread")
-public class RealisticFireSpread {
-	public RealisticFireSpread() {
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+public class RealisticFireSpread implements ModInitializer, WorldTickCallback {
+	@Override
+	public void onInitialize() {
+		WorldTickCallback.EVENT.register(this);
 	}
 	
-	private void setup(final FMLCommonSetupEvent event) {
-		MinecraftForge.EVENT_BUS.register(new Handler());
-	}
-	
-	private static class Handler {
-		@SubscribeEvent
-		public void worldTick(TickEvent.WorldTickEvent event) {
-			World world = event.world;
-			if (!world.isRemote && world instanceof ServerWorld && world.getGameTime() % 20 == 0 && world.getGameRules().getBoolean(GameRules.DO_FIRE_TICK)) ((ServerWorld) world).getEntities().forEach(entity -> {
-				if (entity.isBurning()) {
-					BlockPos pos = entity.getPosition();
-					Random rand = world.rand;
+	@Override
+	public void tick(World world) {
+		if (!world.isClient && world instanceof ServerWorld && world.getTime() % 20 == 0 && world.getGameRules().getBoolean(GameRules.DO_FIRE_TICK)) {
+			((ServerWorld) world).iterateEntities().forEach(entity -> {
+				if (entity.isOnFire()) {
+					BlockPos pos = entity.getBlockPos();
+					Random rand = world.random;
 					pos = pos.add(MathHelper.nextInt(rand, -1, 1), MathHelper.nextInt(rand, -1, 1), MathHelper.nextInt(rand, -1, 1));
-					if (world.getBlockState(pos).isAir(world, pos)) {
+					if (world.getBlockState(pos).isAir()) {
 						for (Direction direction : Direction.values()) {
-							if (world.getBlockState(pos.offset(direction)).isFlammable(world, pos.offset(direction), direction)) {
-								world.setBlockState(pos, ((FireBlock) Blocks.FIRE).getStateForPlacement(world, pos));
+							if (AbstractFireBlock.method_30032(world, pos.offset(direction))) {
+								world.setBlockState(pos, AbstractFireBlock.getState(world, pos));
 								break;
 							}
 						}
