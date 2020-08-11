@@ -28,7 +28,7 @@ public class RealisticFireSpread implements ModInitializer, WorldTickCallback {
 					pos = pos.add(MathHelper.nextInt(rand, -1, 1), MathHelper.nextInt(rand, -1, 1), MathHelper.nextInt(rand, -1, 1));
 					if (world.getBlockState(pos).isAir()) {
 						for (Direction direction : Direction.values()) {
-							if (AbstractFireBlock.method_30032(world, pos.offset(direction))) {
+							if (AbstractFireBlock.method_30032(world, pos.offset(direction), direction)) {
 								world.setBlockState(pos, AbstractFireBlock.getState(world, pos));
 								break;
 							}
