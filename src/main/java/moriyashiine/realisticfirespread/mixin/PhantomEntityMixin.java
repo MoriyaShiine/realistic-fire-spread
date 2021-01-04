@@ -18,7 +18,7 @@ public abstract class PhantomEntityMixin extends Entity implements IsFireFromSun
 	
 	@Inject(method = "tickMovement", at = @At(value = "INVOKE", shift = At.Shift.BEFORE, ordinal = 0, target = "Lnet/minecraft/entity/mob/PhantomEntity;setOnFireFor(I)V"))
 	private void tickMovement(CallbackInfo callbackInfo) {
-		if (!isOnFire()) {
+		if (!world.isClient && !isOnFire()) {
 			setIsFireFromSun(true);
 		}
 	}

@@ -18,7 +18,7 @@ public abstract class ZombieEntityMixin extends Entity implements IsFireFromSunA
 	
 	@Inject(method = "tickMovement", at = @At(value = "INVOKE", shift = At.Shift.BEFORE, ordinal = 0, target = "Lnet/minecraft/entity/mob/ZombieEntity;setOnFireFor(I)V"))
 	private void tickMovement(CallbackInfo callbackInfo) {
-		if (!isOnFire()) {
+		if (!world.isClient && !isOnFire()) {
 			setIsFireFromSun(true);
 		}
 	}

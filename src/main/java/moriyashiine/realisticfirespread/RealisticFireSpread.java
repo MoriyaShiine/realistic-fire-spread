@@ -1,5 +1,7 @@
 package moriyashiine.realisticfirespread;
 
+import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
+import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
 import moriyashiine.realisticfirespread.accessor.IsFireFromSunAccessor;
 import moriyashiine.realisticfirespread.mixin.FireBlockAccessor;
 import net.fabricmc.api.ModInitializer;
@@ -15,8 +17,12 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class RealisticFireSpread implements ModInitializer, WorldTickCallback {
+	public static RFSConfig config;
+	
 	@Override
 	public void onInitialize() {
+		AutoConfig.register(RFSConfig.class, GsonConfigSerializer::new);
+		config = AutoConfig.getConfigHolder(RFSConfig.class).getConfig();
 		WorldTickCallback.EVENT.register(this);
 	}
 	
@@ -24,7 +30,7 @@ public class RealisticFireSpread implements ModInitializer, WorldTickCallback {
 	public void tick(World world) {
 		if (!world.isClient && world instanceof ServerWorld && world.getTime() % 20 == 0 && world.getGameRules().getBoolean(GameRules.DO_FIRE_TICK)) {
 			((ServerWorld) world).iterateEntities().forEach(entity -> {
-				if (entity.isOnFire() && !((IsFireFromSunAccessor) entity).getIsFireFromSun()) {
+				if (entity.isOnFire() && (config.shouldSunlitEntitiesSpreadFire || !((IsFireFromSunAccessor) entity).getIsFireFromSun())) {
 					BlockPos pos = entity.getBlockPos();
 					Random rand = world.random;
 					pos = pos.add(MathHelper.nextInt(rand, -1, 1), MathHelper.nextInt(rand, -1, 1), MathHelper.nextInt(rand, -1, 1));

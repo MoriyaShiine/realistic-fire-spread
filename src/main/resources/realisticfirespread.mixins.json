@@ -8,7 +8,9 @@
 	"EntityMixin",
 	"FireBlockAccessor",
 	"MobEntityAccessor",
+	"PersistentProjectileEntityMixin",
 	"PhantomEntityMixin",
+	"PlayerEntityMixin",
 	"ZombieEntityMixin"
   ],
   "injectors": {

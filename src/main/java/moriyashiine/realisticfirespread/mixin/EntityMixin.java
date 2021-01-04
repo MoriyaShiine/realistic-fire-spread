@@ -2,7 +2,10 @@ package moriyashiine.realisticfirespread.mixin;
 
 import moriyashiine.realisticfirespread.accessor.IsFireFromSunAccessor;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LightningEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,10 +15,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin implements IsFireFromSunAccessor {
+	private boolean isFireFromSun = false;
+	
 	@Shadow
 	public abstract int getFireTicks();
 	
-	private boolean isFireFromSun = false;
+	@Shadow
+	public World world;
 	
 	@Override
 	public boolean getIsFireFromSun() {
@@ -29,7 +35,14 @@ public abstract class EntityMixin implements IsFireFromSunAccessor {
 	
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void setFireTicks(CallbackInfo callbackInfo) {
-		if (getFireTicks() <= 0 && getIsFireFromSun()) {
+		if (!world.isClient && getFireTicks() <= 0 && getIsFireFromSun()) {
+			setIsFireFromSun(false);
+		}
+	}
+	
+	@Inject(method = "onStruckByLightning", at = @At("HEAD"))
+	private void onStruckByLightning(ServerWorld world, LightningEntity lightning, CallbackInfo callbackInfo) {
+		if (!world.isClient) {
 			setIsFireFromSun(false);
 		}
 	}
