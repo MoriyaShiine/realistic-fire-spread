@@ -1,3 +1,0 @@
-accessWidener v1 named
-
-accessible method net/minecraft/block/FireBlock areBlocksAroundFlammable (Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z
