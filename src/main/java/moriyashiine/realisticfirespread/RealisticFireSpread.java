@@ -1,39 +1,34 @@
 package moriyashiine.realisticfirespread;
 
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import moriyashiine.realisticfirespread.accessor.IsFireFromSunAccessor;
 import moriyashiine.realisticfirespread.mixin.FireBlockAccessor;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.world.WorldTickCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
 
-import java.util.Random;
-
-public class RealisticFireSpread implements ModInitializer, WorldTickCallback {
+public class RealisticFireSpread implements ModInitializer, ServerTickEvents.EndWorldTick {
 	public static RFSConfig config;
 	
 	@Override
 	public void onInitialize() {
 		AutoConfig.register(RFSConfig.class, GsonConfigSerializer::new);
 		config = AutoConfig.getConfigHolder(RFSConfig.class).getConfig();
-		WorldTickCallback.EVENT.register(this);
+		ServerTickEvents.END_WORLD_TICK.register(this);
 	}
 	
 	@Override
-	public void tick(World world) {
-		if (!world.isClient && world instanceof ServerWorld && world.getTime() % 20 == 0 && world.getGameRules().getBoolean(GameRules.DO_FIRE_TICK)) {
-			((ServerWorld) world).iterateEntities().forEach(entity -> {
+	public void onEndTick(ServerWorld world) {
+		if (world.getTime() % 20 == 0 && world.getGameRules().getBoolean(GameRules.DO_FIRE_TICK)) {
+			world.iterateEntities().forEach(entity -> {
 				if (entity.isOnFire() && (config.shouldSunlitEntitiesSpreadFire || !((IsFireFromSunAccessor) entity).getIsFireFromSun())) {
-					BlockPos pos = entity.getBlockPos();
-					Random rand = world.random;
-					pos = pos.add(MathHelper.nextInt(rand, -1, 1), MathHelper.nextInt(rand, -1, 1), MathHelper.nextInt(rand, -1, 1));
+					BlockPos pos = entity.getBlockPos().add(MathHelper.nextInt(world.random, -1, 1), MathHelper.nextInt(world.random, -1, 1), MathHelper.nextInt(world.random, -1, 1));
 					if (world.getBlockState(pos).isAir() && ((FireBlockAccessor) Blocks.FIRE).rfs_areBlocksAroundFlammable(world, pos)) {
 						world.setBlockState(pos, AbstractFireBlock.getState(world, pos));
 					}

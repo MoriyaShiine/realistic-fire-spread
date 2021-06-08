@@ -2,12 +2,11 @@
   "required": true,
   "minVersion": "0.8",
   "package": "moriyashiine.realisticfirespread.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_16",
   "mixins": [
 	"AbstractSkeletonEntityMixin",
 	"EntityMixin",
 	"FireBlockAccessor",
-	"MobEntityAccessor",
 	"PersistentProjectileEntityMixin",
 	"PhantomEntityMixin",
 	"PlayerEntityMixin",

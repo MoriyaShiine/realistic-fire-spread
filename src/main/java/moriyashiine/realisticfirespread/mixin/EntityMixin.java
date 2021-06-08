@@ -3,7 +3,7 @@ package moriyashiine.realisticfirespread.mixin;
 import moriyashiine.realisticfirespread.accessor.IsFireFromSunAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LightningEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,7 +33,7 @@ public abstract class EntityMixin implements IsFireFromSunAccessor {
 		this.isFireFromSun = isFireFromSun;
 	}
 	
-	@Inject(method = "tick", at = @At("HEAD"))
+	@Inject(method = "tick", at = @At("TAIL"))
 	private void setFireTicks(CallbackInfo callbackInfo) {
 		if (!world.isClient && getFireTicks() <= 0 && getIsFireFromSun()) {
 			setIsFireFromSun(false);
@@ -47,13 +47,13 @@ public abstract class EntityMixin implements IsFireFromSunAccessor {
 		}
 	}
 	
-	@Inject(method = "fromTag", at = @At("HEAD"))
-	private void fromTag(CompoundTag tag, CallbackInfo callbackInfo) {
-		isFireFromSun = tag.getBoolean("IsFireFromSun");
+	@Inject(method = "readNbt", at = @At("TAIL"))
+	private void readNbt(NbtCompound nbt, CallbackInfo callbackInfo) {
+		isFireFromSun = nbt.getBoolean("IsFireFromSun");
 	}
 	
-	@Inject(method = "toTag", at = @At("HEAD"))
-	private void toTag(CompoundTag tag, CallbackInfoReturnable<CompoundTag> callbackInfo) {
-		tag.putBoolean("IsFireFromSun", isFireFromSun);
+	@Inject(method = "writeNbt", at = @At("TAIL"))
+	private void writeNbt(NbtCompound nbt, CallbackInfoReturnable<NbtCompound> callbackInfo) {
+		nbt.putBoolean("IsFireFromSun", isFireFromSun);
 	}
 }
