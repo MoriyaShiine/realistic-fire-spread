@@ -16,7 +16,15 @@
   "environment": "*",
   "entrypoints": {
 	"main": [
-	  "moriyashiine.realisticfirespread.RealisticFireSpread"
+	  "moriyashiine.realisticfirespread.common.RealisticFireSpread"
+	],
+	"cardinal-components-entity": [
+	  "moriyashiine.realisticfirespread.common.registry.RSFComponents"
+	]
+  },
+  "custom": {
+	"cardinal-components": [
+	  "realisticfirespread:fire_from_sun"
 	]
   },
   "mixins": [

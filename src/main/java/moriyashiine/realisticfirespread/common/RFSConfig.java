@@ -1,4 +1,4 @@
-package moriyashiine.realisticfirespread;
+package moriyashiine.realisticfirespread.common;
 
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
