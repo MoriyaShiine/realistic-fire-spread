@@ -9,11 +9,11 @@ import net.minecraft.nbt.NbtCompound;
 import java.util.Optional;
 
 public class FireFromSunComponent implements ComponentV3, ServerTickingComponent {
-	private final Entity entity;
+	private final Entity obj;
 	private boolean fireFromSun = false;
 	
-	public FireFromSunComponent(Entity entity) {
-		this.entity = entity;
+	public FireFromSunComponent(Entity obj) {
+		this.obj = obj;
 	}
 	
 	public boolean isFireFromSun() {
@@ -36,17 +36,17 @@ public class FireFromSunComponent implements ComponentV3, ServerTickingComponent
 	
 	@Override
 	public void serverTick() {
-		if (entity.getFireTicks() <= 0 && isFireFromSun()) {
+		if (obj.getFireTicks() <= 0 && isFireFromSun()) {
 			setFireFromSun(false);
 		}
 	}
 	
-	public static FireFromSunComponent get(Entity entity) {
-		return RSFComponents.FIRE_FROM_SUN_COMPONENT.get(entity);
+	public static FireFromSunComponent get(Entity obj) {
+		return RSFComponents.FIRE_FROM_SUN_COMPONENT.get(obj);
 	}
 	
 	@SuppressWarnings("unused")
-	public static Optional<FireFromSunComponent> maybeGet(Entity entity) {
-		return RSFComponents.FIRE_FROM_SUN_COMPONENT.maybeGet(entity);
+	public static Optional<FireFromSunComponent> maybeGet(Entity obj) {
+		return RSFComponents.FIRE_FROM_SUN_COMPONENT.maybeGet(obj);
 	}
 }
