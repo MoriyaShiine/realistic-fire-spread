@@ -22,11 +22,6 @@
 	  "moriyashiine.realisticfirespread.common.registry.RSFComponents"
 	]
   },
-  "custom": {
-	"cardinal-components": [
-	  "realisticfirespread:fire_from_sun"
-	]
-  },
   "mixins": [
 	"realisticfirespread.mixins.json"
   ],
@@ -34,5 +29,10 @@
 	"fabricloader": "*",
 	"fabric": "*",
 	"minecraft": "1.17.*"
+  },
+  "custom": {
+	"cardinal-components": [
+	  "realisticfirespread:fire_from_sun"
+	]
   }
 }
