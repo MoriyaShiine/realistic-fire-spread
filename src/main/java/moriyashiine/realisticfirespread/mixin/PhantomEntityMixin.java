@@ -1,6 +1,6 @@
 package moriyashiine.realisticfirespread.mixin;
 
-import moriyashiine.realisticfirespread.api.component.FireFromSunComponent;
+import moriyashiine.realisticfirespread.common.registry.ModComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.PhantomEntity;
@@ -16,10 +16,10 @@ public abstract class PhantomEntityMixin extends Entity {
 		super(type, world);
 	}
 	
-	@Inject(method = "tickMovement", at = @At(value = "INVOKE", shift = At.Shift.BEFORE, target = "Lnet/minecraft/entity/mob/PhantomEntity;setOnFireFor(I)V"))
-	private void tickMovement(CallbackInfo callbackInfo) {
+	@Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/PhantomEntity;setOnFireFor(I)V"))
+	private void setFireFromSun(CallbackInfo ci) {
 		if (!world.isClient && !isOnFire()) {
-			FireFromSunComponent.get(this).setFireFromSun(true);
+			ModComponents.FIRE_FROM_SUN_COMPONENT.get(this).setFireFromSun(true);
 		}
 	}
 }

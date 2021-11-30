@@ -9,7 +9,8 @@
   ],
   "contact": {
 	"homepage": "https://www.curseforge.com/minecraft/mc-mods/realistic-fire-spread",
-	"sources": "https://github.com/MoriyaShiine/realistic-fire-spread"
+	"sources": "https://github.com/MoriyaShiine/realistic-fire-spread",
+	"issues": "https://github.com/MoriyaShiine/realistic-fire-spread/issues"
   },
   "license": "CC BY-NC-ND 4.0",
   "icon": "assets/realisticfirespread/icon.png",
@@ -19,16 +20,18 @@
 	  "moriyashiine.realisticfirespread.common.RealisticFireSpread"
 	],
 	"cardinal-components-entity": [
-	  "moriyashiine.realisticfirespread.common.registry.RSFComponents"
+	  "moriyashiine.realisticfirespread.common.registry.ModComponents"
 	]
   },
   "mixins": [
 	"realisticfirespread.mixins.json"
   ],
   "depends": {
-	"fabricloader": "*",
-	"fabric": "*",
-	"minecraft": "1.17.*"
+	"fabricloader": ">=0.12.6",
+	"fabric": ">=0.43.1",
+	"minecraft": "1.18.x",
+	"java": ">=17",
+	"cloth-config2": ">=6.0.42"
   },
   "custom": {
 	"cardinal-components": [

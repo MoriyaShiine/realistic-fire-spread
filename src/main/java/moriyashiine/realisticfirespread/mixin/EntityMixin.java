@@ -1,6 +1,6 @@
 package moriyashiine.realisticfirespread.mixin;
 
-import moriyashiine.realisticfirespread.api.component.FireFromSunComponent;
+import moriyashiine.realisticfirespread.common.registry.ModComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Entity.class)
 public abstract class EntityMixin {
 	@Inject(method = "onStruckByLightning", at = @At("HEAD"))
-	private void onStruckByLightning(ServerWorld world, LightningEntity lightning, CallbackInfo callbackInfo) {
+	private void removeFireFromSun(ServerWorld world, LightningEntity lightning, CallbackInfo ci) {
 		if (!world.isClient) {
-			FireFromSunComponent.get((Entity) (Object) this).setFireFromSun(false);
+			ModComponents.FIRE_FROM_SUN_COMPONENT.get(this).setFireFromSun(false);
 		}
 	}
 }

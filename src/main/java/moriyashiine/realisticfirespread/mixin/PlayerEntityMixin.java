@@ -1,6 +1,6 @@
 package moriyashiine.realisticfirespread.mixin;
 
-import moriyashiine.realisticfirespread.api.component.FireFromSunComponent;
+import moriyashiine.realisticfirespread.common.registry.ModComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,10 +16,10 @@ public abstract class PlayerEntityMixin extends Entity {
 		super(type, world);
 	}
 	
-	@Inject(method = "attack", at = @At(value = "INVOKE", shift = At.Shift.BEFORE, ordinal = 1, target = "Lnet/minecraft/entity/Entity;setOnFireFor(I)V"))
-	private void attack(Entity target, CallbackInfo callbackInfo) {
+	@Inject(method = "attack", at = @At(value = "INVOKE", ordinal = 1, target = "Lnet/minecraft/entity/Entity;setOnFireFor(I)V"))
+	private void removeFireFromSun(Entity target, CallbackInfo ci) {
 		if (!world.isClient) {
-			FireFromSunComponent.get(target).setFireFromSun(false);
+			ModComponents.FIRE_FROM_SUN_COMPONENT.get(this).setFireFromSun(false);
 		}
 	}
 }

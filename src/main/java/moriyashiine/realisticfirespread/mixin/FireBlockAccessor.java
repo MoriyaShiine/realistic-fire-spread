@@ -9,5 +9,5 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(FireBlock.class)
 public interface FireBlockAccessor {
 	@Invoker("areBlocksAroundFlammable")
-	boolean rfs_areBlocksAroundFlammable(BlockView world, BlockPos pos);
+	boolean realisticfirespread_areBlocksAroundFlammable(BlockView world, BlockPos pos);
 }
