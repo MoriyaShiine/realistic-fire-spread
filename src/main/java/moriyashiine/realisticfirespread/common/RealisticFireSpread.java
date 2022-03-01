@@ -14,9 +14,9 @@ import net.minecraft.world.GameRules;
 
 public class RealisticFireSpread implements ModInitializer {
 	public static final String MOD_ID = "realisticfirespread";
-	
+
 	public static ModConfig config;
-	
+
 	@Override
 	public void onInitialize() {
 		AutoConfig.register(ModConfig.class, GsonConfigSerializer::new);
@@ -26,7 +26,7 @@ public class RealisticFireSpread implements ModInitializer {
 				world.iterateEntities().forEach(entity -> {
 					if (entity.isOnFire() && (config.shouldSunlitEntitiesSpreadFire || !ModComponents.FIRE_FROM_SUN_COMPONENT.get(entity).isFireFromSun())) {
 						BlockPos pos = entity.getBlockPos().add(MathHelper.nextInt(world.random, -1, 1), MathHelper.nextInt(world.random, -1, 1), MathHelper.nextInt(world.random, -1, 1));
-						if (world.getBlockState(pos).isAir() && ((FireBlockAccessor) Blocks.FIRE).realisticfirespread_areBlocksAroundFlammable(world, pos)) {
+						if (world.getBlockState(pos).isAir() && ((FireBlockAccessor) Blocks.FIRE).realisticfirespread$areBlocksAroundFlammable(world, pos)) {
 							world.setBlockState(pos, AbstractFireBlock.getState(world, pos));
 						}
 					}

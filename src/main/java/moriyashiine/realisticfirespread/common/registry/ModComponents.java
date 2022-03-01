@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 
 public class ModComponents implements EntityComponentInitializer {
 	public static final ComponentKey<FireFromSunComponent> FIRE_FROM_SUN_COMPONENT = ComponentRegistry.getOrCreate(new Identifier(RealisticFireSpread.MOD_ID, "fire_from_sun"), FireFromSunComponent.class);
-	
+
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
 		registry.beginRegistration(Entity.class, FIRE_FROM_SUN_COMPONENT).respawnStrategy(RespawnCopyStrategy.LOSSLESS_ONLY).end(FireFromSunComponent::new);

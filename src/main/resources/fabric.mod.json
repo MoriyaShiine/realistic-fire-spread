@@ -12,7 +12,7 @@
 	"sources": "https://github.com/MoriyaShiine/realistic-fire-spread",
 	"issues": "https://github.com/MoriyaShiine/realistic-fire-spread/issues"
   },
-  "license": "CC BY-NC-ND 4.0",
+  "license": "All Rights Reserved",
   "icon": "assets/realisticfirespread/icon.png",
   "environment": "*",
   "entrypoints": {
@@ -27,11 +27,11 @@
 	"realisticfirespread.mixins.json"
   ],
   "depends": {
-	"fabricloader": ">=0.12.6",
-	"fabric": ">=0.43.1",
-	"minecraft": "1.18.x",
+	"fabricloader": ">=0.13.3",
+	"minecraft": "~1.18.2",
 	"java": ">=17",
-	"cloth-config2": ">=6.0.42"
+	"cloth-config2": ">=6.2.57",
+	"fabric": ">=0.47.8"
   },
   "custom": {
 	"cardinal-components": [

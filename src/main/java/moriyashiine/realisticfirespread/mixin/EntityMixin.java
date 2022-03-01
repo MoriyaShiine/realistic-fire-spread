@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Entity.class)
 public abstract class EntityMixin {
 	@Inject(method = "onStruckByLightning", at = @At("HEAD"))
-	private void removeFireFromSun(ServerWorld world, LightningEntity lightning, CallbackInfo ci) {
+	private void realisticfirespread$removeFireFromSun(ServerWorld world, LightningEntity lightning, CallbackInfo ci) {
 		if (!world.isClient) {
 			ModComponents.FIRE_FROM_SUN_COMPONENT.get(this).setFireFromSun(false);
 		}
