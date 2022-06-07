@@ -1,6 +1,10 @@
+/*
+ * All Rights Reserved (c) 2022 MoriyaShiine
+ */
+
 package moriyashiine.realisticfirespread.mixin;
 
-import moriyashiine.realisticfirespread.common.registry.ModComponents;
+import moriyashiine.realisticfirespread.common.registry.ModEntityComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -20,7 +24,7 @@ public abstract class PersistentProjectileEntityMixin extends Entity {
 	@Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setOnFireFor(I)V"))
 	private void realisticfirespread$removeFireFromSun(EntityHitResult entityHitResult, CallbackInfo ci) {
 		if (!world.isClient) {
-			ModComponents.FIRE_FROM_SUN_COMPONENT.get(entityHitResult.getEntity()).setFireFromSun(false);
+			entityHitResult.getEntity().getComponent(ModEntityComponents.FIRE_FROM_SUN).setFireFromSun(false);
 		}
 	}
 }

@@ -1,6 +1,10 @@
+/*
+ * All Rights Reserved (c) 2022 MoriyaShiine
+ */
+
 package moriyashiine.realisticfirespread.mixin;
 
-import moriyashiine.realisticfirespread.common.registry.ModComponents;
+import moriyashiine.realisticfirespread.common.registry.ModEntityComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,7 +23,7 @@ public abstract class PlayerEntityMixin extends Entity {
 	@Inject(method = "attack", at = @At(value = "INVOKE", ordinal = 1, target = "Lnet/minecraft/entity/Entity;setOnFireFor(I)V"))
 	private void realisticfirespread$removeFireFromSun(Entity target, CallbackInfo ci) {
 		if (!world.isClient) {
-			ModComponents.FIRE_FROM_SUN_COMPONENT.get(this).setFireFromSun(false);
+			getComponent(ModEntityComponents.FIRE_FROM_SUN).setFireFromSun(false);
 		}
 	}
 }

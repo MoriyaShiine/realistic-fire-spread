@@ -1,6 +1,10 @@
+/*
+ * All Rights Reserved (c) 2022 MoriyaShiine
+ */
+
 package moriyashiine.realisticfirespread.mixin;
 
-import moriyashiine.realisticfirespread.common.registry.ModComponents;
+import moriyashiine.realisticfirespread.common.registry.ModEntityComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -14,7 +18,7 @@ public abstract class EntityMixin {
 	@Inject(method = "onStruckByLightning", at = @At("HEAD"))
 	private void realisticfirespread$removeFireFromSun(ServerWorld world, LightningEntity lightning, CallbackInfo ci) {
 		if (!world.isClient) {
-			ModComponents.FIRE_FROM_SUN_COMPONENT.get(this).setFireFromSun(false);
+			ModEntityComponents.FIRE_FROM_SUN.get(this).setFireFromSun(false);
 		}
 	}
 }

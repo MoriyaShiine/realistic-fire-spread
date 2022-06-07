@@ -1,9 +1,12 @@
+/*
+ * All Rights Reserved (c) 2022 MoriyaShiine
+ */
+
 package moriyashiine.realisticfirespread.common;
 
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
+import eu.midnightdust.lib.config.MidnightConfig;
 
-@Config(name = RealisticFireSpread.MOD_ID)
-public class ModConfig implements ConfigData {
-	public boolean shouldSunlitEntitiesSpreadFire = false;
+public class ModConfig extends MidnightConfig {
+	@Entry
+	public static boolean shouldSunlitEntitiesSpreadFire = false;
 }

@@ -1,3 +1,7 @@
+/*
+ * All Rights Reserved (c) 2022 MoriyaShiine
+ */
+
 package moriyashiine.realisticfirespread.common.component.entity;
 
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
@@ -14,18 +18,18 @@ public class FireFromSunComponent implements ServerTickingComponent {
 
 	@Override
 	public void readFromNbt(NbtCompound tag) {
-		setFireFromSun(tag.getBoolean("FireFromSun"));
+		fireFromSun = tag.getBoolean("FireFromSun");
 	}
 
 	@Override
 	public void writeToNbt(NbtCompound tag) {
-		tag.putBoolean("FireFromSun", isFireFromSun());
+		tag.putBoolean("FireFromSun", fireFromSun);
 	}
 
 	@Override
 	public void serverTick() {
-		if (obj.getFireTicks() <= 0 && isFireFromSun()) {
-			setFireFromSun(false);
+		if (fireFromSun && obj.getFireTicks() <= 0) {
+			fireFromSun = false;
 		}
 	}
 

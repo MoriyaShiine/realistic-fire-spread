@@ -1,6 +1,10 @@
+/*
+ * All Rights Reserved (c) 2022 MoriyaShiine
+ */
+
 package moriyashiine.realisticfirespread.mixin;
 
-import moriyashiine.realisticfirespread.common.registry.ModComponents;
+import moriyashiine.realisticfirespread.common.registry.ModEntityComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.ZombieEntity;
@@ -19,7 +23,7 @@ public abstract class ZombieEntityMixin extends Entity {
 	@Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/ZombieEntity;setOnFireFor(I)V"))
 	private void realisticfirespread$setFireFromSun(CallbackInfo ci) {
 		if (!world.isClient && !isOnFire()) {
-			ModComponents.FIRE_FROM_SUN_COMPONENT.get(this).setFireFromSun(true);
+			getComponent(ModEntityComponents.FIRE_FROM_SUN).setFireFromSun(true);
 		}
 	}
 }
