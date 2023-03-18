@@ -24,7 +24,7 @@ public abstract class PersistentProjectileEntityMixin extends Entity {
 	@Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setOnFireFor(I)V"))
 	private void realisticfirespread$removeFireFromSun(EntityHitResult entityHitResult, CallbackInfo ci) {
 		if (!world.isClient) {
-			entityHitResult.getEntity().getComponent(ModEntityComponents.FIRE_FROM_SUN).setFireFromSun(false);
+			ModEntityComponents.FIRE_FROM_SUN.get(entityHitResult.getEntity()).setFireFromSun(false);
 		}
 	}
 }

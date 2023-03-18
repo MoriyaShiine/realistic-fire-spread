@@ -25,7 +25,7 @@ public class RealisticFireSpread implements ModInitializer {
 		ServerTickEvents.END_WORLD_TICK.register(world -> {
 			if (world.getTime() % 20 == 0 && world.getGameRules().getBoolean(GameRules.DO_FIRE_TICK)) {
 				world.iterateEntities().forEach(entity -> {
-					if (entity.isOnFire() && (ModConfig.shouldSunlitEntitiesSpreadFire || !entity.getComponent(ModEntityComponents.FIRE_FROM_SUN).isFireFromSun())) {
+					if (entity.isOnFire() && (ModConfig.shouldSunlitEntitiesSpreadFire || !ModEntityComponents.FIRE_FROM_SUN.get(entity).isFireFromSun())) {
 						BlockPos pos = entity.getBlockPos().add(MathHelper.nextInt(world.random, -1, 1), MathHelper.nextInt(world.random, -1, 1), MathHelper.nextInt(world.random, -1, 1));
 						if (world.getBlockState(pos).isAir() && ((FireBlockAccessor) Blocks.FIRE).realisticfirespread$areBlocksAroundFlammable(world, pos)) {
 							world.setBlockState(pos, AbstractFireBlock.getState(world, pos));

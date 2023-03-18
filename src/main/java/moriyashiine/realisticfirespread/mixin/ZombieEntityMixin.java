@@ -23,7 +23,7 @@ public abstract class ZombieEntityMixin extends Entity {
 	@Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/ZombieEntity;setOnFireFor(I)V"))
 	private void realisticfirespread$setFireFromSun(CallbackInfo ci) {
 		if (!world.isClient && !isOnFire()) {
-			getComponent(ModEntityComponents.FIRE_FROM_SUN).setFireFromSun(true);
+			ModEntityComponents.FIRE_FROM_SUN.get(this).setFireFromSun(true);
 		}
 	}
 }

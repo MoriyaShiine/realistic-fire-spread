@@ -23,7 +23,7 @@ public abstract class PlayerEntityMixin extends Entity {
 	@Inject(method = "attack", at = @At(value = "INVOKE", ordinal = 1, target = "Lnet/minecraft/entity/Entity;setOnFireFor(I)V"))
 	private void realisticfirespread$removeFireFromSun(Entity target, CallbackInfo ci) {
 		if (!world.isClient) {
-			getComponent(ModEntityComponents.FIRE_FROM_SUN).setFireFromSun(false);
+			ModEntityComponents.FIRE_FROM_SUN.get(target).setFireFromSun(false);
 		}
 	}
 }
