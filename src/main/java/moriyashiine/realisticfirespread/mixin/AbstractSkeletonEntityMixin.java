@@ -22,7 +22,7 @@ public abstract class AbstractSkeletonEntityMixin extends Entity {
 
 	@Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/AbstractSkeletonEntity;setOnFireFor(I)V"))
 	private void realisticfirespread$setFireFromSun(CallbackInfo ci) {
-		if (!world.isClient && !isOnFire()) {
+		if (!getWorld().isClient && !isOnFire()) {
 			ModEntityComponents.FIRE_FROM_SUN.get(this).setFireFromSun(true);
 		}
 	}
