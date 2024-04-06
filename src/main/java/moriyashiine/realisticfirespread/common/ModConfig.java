@@ -8,5 +8,5 @@ import eu.midnightdust.lib.config.MidnightConfig;
 
 public class ModConfig extends MidnightConfig {
 	@Entry
-	public static boolean shouldSunlitEntitiesSpreadFire = false;
+	public static boolean spreadFireFromSun = false;
 }
