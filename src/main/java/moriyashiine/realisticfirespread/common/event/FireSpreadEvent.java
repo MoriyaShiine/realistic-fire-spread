@@ -5,8 +5,9 @@
 package moriyashiine.realisticfirespread.common.event;
 
 import moriyashiine.realisticfirespread.common.ModConfig;
-import moriyashiine.realisticfirespread.common.registry.ModEntityComponents;
+import moriyashiine.realisticfirespread.common.init.ModEntityComponents;
 import moriyashiine.realisticfirespread.mixin.FireBlockAccessor;
+import moriyashiine.realisticfirespread.mixin.MobEntityAccessor;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Blocks;
@@ -21,7 +22,7 @@ public class FireSpreadEvent implements ServerTickEvents.EndWorldTick {
 	public void onEndTick(ServerWorld world) {
 		if (world.getTime() % 20 == 0 && world.getGameRules().getBoolean(GameRules.DO_FIRE_TICK)) {
 			for (Entity entity : world.iterateEntities()) {
-				if (entity.isOnFire() && (ModConfig.sunlitEntitiesSpreadFire || !ModEntityComponents.FIRE_FROM_SUN.get(entity).isFireFromSun())) {
+				if (shouldSpreadFire(entity)) {
 					BlockPos pos = entity.getBlockPos().add(MathHelper.nextInt(world.random, -1, 1), MathHelper.nextInt(world.random, -1, 1), MathHelper.nextInt(world.random, -1, 1));
 					if (world.getBlockState(pos).isAir() && ((FireBlockAccessor) Blocks.FIRE).realisticfirespread$areBlocksAroundFlammable(world, pos)) {
 						world.setBlockState(pos, AbstractFireBlock.getState(world, pos));
@@ -29,5 +30,18 @@ public class FireSpreadEvent implements ServerTickEvents.EndWorldTick {
 				}
 			}
 		}
+	}
+
+	private boolean shouldSpreadFire(Entity entity) {
+		if (entity.isOnFire()) {
+			if (ModConfig.sunlitEntitiesSpreadFire) {
+				return true;
+			}
+			if (ModEntityComponents.ALLOW_FIRE_SPREAD.get(entity).allowFireSpread()) {
+				return true;
+			}
+			return !(entity instanceof MobEntityAccessor mob) || mob.realisticfirespread$isAffectedByDaylight();
+		}
+		return false;
 	}
 }

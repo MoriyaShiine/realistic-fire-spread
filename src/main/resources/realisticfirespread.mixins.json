@@ -3,13 +3,13 @@
   "package": "moriyashiine.realisticfirespread.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-	"AbstractSkeletonEntityMixin",
+	"AbstractFireBlockMixin",
 	"EntityMixin",
 	"FireBlockAccessor",
-	"PersistentProjectileEntityMixin",
-	"PhantomEntityMixin",
+	"MobEntityAccessor",
+	"MobEntityMixin",
 	"PlayerEntityMixin",
-	"ZombieEntityMixin"
+	"ProjectileFireMixin"
   ],
   "injectors": {
 	"defaultRequire": 1
