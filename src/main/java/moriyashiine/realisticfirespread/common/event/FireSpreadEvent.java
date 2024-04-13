@@ -7,11 +7,11 @@ package moriyashiine.realisticfirespread.common.event;
 import moriyashiine.realisticfirespread.common.ModConfig;
 import moriyashiine.realisticfirespread.common.init.ModEntityComponents;
 import moriyashiine.realisticfirespread.mixin.FireBlockAccessor;
-import moriyashiine.realisticfirespread.mixin.MobEntityAccessor;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -40,7 +40,7 @@ public class FireSpreadEvent implements ServerTickEvents.EndWorldTick {
 			if (ModEntityComponents.ALLOW_FIRE_SPREAD.get(entity).allowFireSpread()) {
 				return true;
 			}
-			return !(entity instanceof MobEntityAccessor mob) || mob.realisticfirespread$isAffectedByDaylight();
+			return !(entity instanceof LivingEntity);
 		}
 		return false;
 	}

@@ -6,7 +6,6 @@
 	"AbstractFireBlockMixin",
 	"EntityMixin",
 	"FireBlockAccessor",
-	"MobEntityAccessor",
 	"MobEntityMixin",
 	"PlayerEntityMixin",
 	"ProjectileFireMixin"
