@@ -4,9 +4,10 @@
 
 package moriyashiine.realisticfirespread.common.component.entity;
 
-import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
+import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
 public class AllowFireSpreadComponent implements ServerTickingComponent {
 	private final Entity obj;
@@ -17,12 +18,12 @@ public class AllowFireSpreadComponent implements ServerTickingComponent {
 	}
 
 	@Override
-	public void readFromNbt(NbtCompound tag) {
+	public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		allowFireSpread = tag.getBoolean("AllowFireSpread");
 	}
 
 	@Override
-	public void writeToNbt(NbtCompound tag) {
+	public void writeToNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		tag.putBoolean("AllowFireSpread", allowFireSpread);
 	}
 
