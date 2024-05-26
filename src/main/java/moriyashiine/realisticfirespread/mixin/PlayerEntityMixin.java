@@ -1,7 +1,6 @@
 /*
- * All Rights Reserved (c) MoriyaShiine
+ * Copyright (c) MoriyaShiine. All Rights Reserved.
  */
-
 package moriyashiine.realisticfirespread.mixin;
 
 import moriyashiine.realisticfirespread.common.init.ModEntityComponents;
