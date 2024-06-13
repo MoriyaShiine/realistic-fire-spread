@@ -21,7 +21,7 @@ public abstract class ProjectileFireMixin extends Entity {
 		super(type, world);
 	}
 
-	@Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setOnFireFor(I)V"))
+	@Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setOnFireFor(F)V"))
 	private void realisticfirespread$allowFireSpread(EntityHitResult entityHitResult, CallbackInfo ci) {
 		if (!getWorld().isClient) {
 			ModEntityComponents.ALLOW_FIRE_SPREAD.get(entityHitResult.getEntity()).setAllowFireSpread(true);

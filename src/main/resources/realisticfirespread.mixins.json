@@ -6,9 +6,9 @@
 	"AbstractFireBlockMixin",
 	"EntityMixin",
 	"FireBlockAccessor",
-	"MobEntityMixin",
-	"PlayerEntityMixin",
-	"ProjectileFireMixin"
+	"IgniteEnchantmentEffectMixin",
+	"ProjectileFireMixin",
+	"ZombieEntityMixin"
   ],
   "injectors": {
 	"defaultRequire": 1
