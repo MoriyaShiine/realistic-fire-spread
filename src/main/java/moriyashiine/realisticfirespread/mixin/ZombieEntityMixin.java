@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,9 +22,7 @@ public abstract class ZombieEntityMixin extends HostileEntity {
 	}
 
 	@Inject(method = "tryAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setOnFireFor(F)V"))
-	private void realisticfirespread$allowFireSpread(Entity target, CallbackInfoReturnable<Boolean> cir) {
-		if (!getWorld().isClient) {
-			ModEntityComponents.ALLOW_FIRE_SPREAD.get(target).setAllowFireSpread(true);
-		}
+	private void realisticfirespread$allowFireSpread(ServerWorld world, Entity target, CallbackInfoReturnable<Boolean> cir) {
+		ModEntityComponents.ALLOW_FIRE_SPREAD.get(target).setAllowFireSpread(true);
 	}
 }

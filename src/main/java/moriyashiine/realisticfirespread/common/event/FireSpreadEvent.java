@@ -36,7 +36,7 @@ public class FireSpreadEvent implements ServerTickEvents.EndWorldTick {
 			if (ModConfig.sunlitEntitiesSpreadFire) {
 				return true;
 			}
-			if (ModEntityComponents.ALLOW_FIRE_SPREAD.get(entity).allowFireSpread()) {
+			if (ModEntityComponents.ALLOW_FIRE_SPREAD.get(entity).allowsFireSpread()) {
 				return true;
 			}
 			return !(entity instanceof LivingEntity);

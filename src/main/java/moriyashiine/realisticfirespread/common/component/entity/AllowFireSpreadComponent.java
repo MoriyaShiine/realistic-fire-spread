@@ -33,7 +33,7 @@ public class AllowFireSpreadComponent implements ServerTickingComponent {
 		}
 	}
 
-	public boolean allowFireSpread() {
+	public boolean allowsFireSpread() {
 		return allowFireSpread;
 	}
 
